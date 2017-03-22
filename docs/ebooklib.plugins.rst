@@ -1,7 +1,7 @@
-plugins Package
+插件包
 ===============
 
-:mod:`base` Module
+:mod:`base` 模块
 ------------------
 
 .. automodule:: ebooklib.plugins.base
@@ -9,7 +9,7 @@ plugins Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`booktype` Module
+:mod:`booktype` 模块
 ----------------------
 
 .. automodule:: ebooklib.plugins.booktype
@@ -17,7 +17,7 @@ plugins Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`sourcecode` Module
+:mod:`sourcecode` 模块
 ------------------------
 
 .. automodule:: ebooklib.plugins.sourcecode
@@ -25,7 +25,7 @@ plugins Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`standard` Module
+:mod:`standard` 模块
 ----------------------
 
 .. automodule:: ebooklib.plugins.standard
@@ -33,7 +33,7 @@ plugins Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`tidyhtml` Module
+:mod:`tidyhtml` 模块
 ----------------------
 
 .. automodule:: ebooklib.plugins.tidyhtml

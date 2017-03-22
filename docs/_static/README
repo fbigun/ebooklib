@@ -1,1 +1,1 @@
-For some reason, readthedocs.org expects a docs/_static/ directory to exist.
+由于某种原因，readthedocs.org希望存在 'docs/_static/' 目录。

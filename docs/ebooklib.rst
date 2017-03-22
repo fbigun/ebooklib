@@ -1,7 +1,7 @@
-ebooklib Package
+ebooklib 包
 ================
 
-:mod:`ebooklib` Package
+:mod:`ebooklib` 包
 -----------------------
 
 .. automodule:: ebooklib
@@ -9,7 +9,7 @@ ebooklib Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`epub` Module
+:mod:`epub` 模块
 ------------------
 
 .. automodule:: ebooklib.epub
@@ -17,7 +17,7 @@ ebooklib Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`utils` Module
+:mod:`utils` 模块
 -------------------
 
 .. automodule:: ebooklib.utils
@@ -25,7 +25,7 @@ ebooklib Package
     :undoc-members:
     :show-inheritance:
 
-Subpackages
+子包
 -----------
 
 .. toctree::

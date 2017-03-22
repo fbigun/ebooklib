@@ -18,32 +18,40 @@
 class BasePlugin(object):
     def before_write(self, book):
         "Processing before save"
+        "保存前处理"
         return True
 
     def after_write(self, book):
         "Processing after save"
+        "保存后处理"
         return True
 
     def before_read(self, book):
         "Processing before save"
+        "保存前处理"
         return True
 
     def after_read(self, book):
         "Processing after save"
+        "保存后处理"
         return True
 
     def item_after_read(self, book, item):
         "Process general item after read."
+        "阅读后处理一般项目"
         return True
 
     def item_before_write(self, book, item):
         "Process general item before write."
+        "编写前处理一般项目"
         return True
 
     def html_after_read(self, book, chapter):
         "Processing HTML before read."
+        "阅读之前处理HTML"
         return True
 
     def html_before_write(self, book, chapter):
         "Processing HTML before save."
+        "保存前处理HTML"
         return True

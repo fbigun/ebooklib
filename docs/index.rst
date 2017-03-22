@@ -1,16 +1,13 @@
-.. EbookLib documentation master file, created by
-   sphinx-quickstart on Fri Apr 25 11:49:49 2014.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. EbookLib文档主文件，创建bysphinx-quickstart在2014年4月25日11:49:49你可以适应这个文件完全按你的喜好，但它应该至少包含根`toctree`指令。
 
-Welcome to EbookLib's documentation!
+欢迎使用EbookLib的文档！
 ====================================
 
-EbookLib is a Python library for managing EPUB2/EPUB3 and Kindle files. It's capable of reading and writing EPUB files programmatically (Kindle support is under development).
+EbookLib是一个用于管理EPUB2/EPUB3和Kindle文件的Python库。它能够以编程方式阅读和编写EPUB文件（Kindle支持正在开发中）。
 
-The API is designed to be as simple as possible, while at the same time making complex things possible too. It has support for covers, table of contents, spine, guide, metadata and more. EbookLib works with Python 2.7 and Python 3.3.
+API被设计为尽可能简单，同时也可能使事情变得复杂。它支持封面，目录，脊柱，指南，元数据等。EbookLib使用Python 2.7和Python 3.3。
 
-Homepage: https://github.com/aerkalov/ebooklib/
+主页: https://github.com/aerkalov/ebooklib/
 
 .. toctree::
     :maxdepth: 4
@@ -18,10 +15,10 @@ Homepage: https://github.com/aerkalov/ebooklib/
     ebooklib
 
 
-Usage
+用法
 =====
 
-Reading
+读
 -------
 ::
 
@@ -33,7 +30,7 @@ Reading
     for image in book.get_items_of_type(ebooklib.ITEM_IMAGE):
         print image
 
-Writing
+写
 -------
 ::
 
@@ -79,9 +76,9 @@ Writing
     # write to the file
     epub.write_epub('test.epub', book, {})
 
-Further examples are available in https://github.com/aerkalov/ebooklib/tree/master/samples
+更多示例在 https://github.com/aerkalov/ebooklib/tree/master/samples
 
-Indices and tables
+索引和表
 ==================
 
 * :ref:`genindex`

@@ -111,17 +111,17 @@ class EpubException(Exception):
 
 class EpubItem(object):
     """
-    Base class for the items in a book.
+    书中项目的基类。
     """
 
     def __init__(self, uid=None, file_name='', media_type='', content=six.b(''), manifest=True):
         """
         :Args:
-          - uid: Unique identifier for this item (optional)
-          - file_name: File name for this item (optional)
-          - media_type: Media type for this item (optional)
-          - content: Content for this item (optional)
-          - manifest: Manifest for this item (optional)
+          - uid: 此项目的唯一标识符（可选）
+          - file_name: 此项目的文件名（可选）
+          - media_type: 此项目的媒体类型（可选）
+          - content: 此项目的内容（可选）
+          - manifest: 此项目的清单（可选）
         """
         self.id = uid
         self.file_name = file_name
@@ -134,27 +134,27 @@ class EpubItem(object):
 
     def get_id(self):
         """
-        Returns unique identifier for this item.
+        返回此项的唯一标识符。
 
         :Returns:
-          Returns uid number as string.
+          以字符串形式返回uid数字。
         """
         return self.id
 
     def get_name(self):
         """
-        Returns name for this item. By default it is always file name but it does not have to be.
+        返回此项的名称。 默认情况下它总是文件名，但它不一定是。
 
         :Returns:
-          Returns file name for this item.
+          返回此项目的文件名。
         """
         return self.file_name
 
     def get_type(self):
         """
-        Guess type according to the file extension. Might not be the best way how to do it, but it works for now.
+        根据文件扩展名猜测类型。 可能不是最好的方式如何做，但它现在工作。
 
-        Items can be of type:
+        项目的可能类型:
           - ITEM_UNKNOWN = 0
           - ITEM_IMAGE = 1
           - ITEM_STYLE = 2
@@ -166,10 +166,10 @@ class EpubItem(object):
           - ITEM_AUDIO = 8
           - ITEM_DOCUMENT = 9
 
-        We map type according to the extensions which are defined in ebooklib.EXTENSIONS.
+        我们根据在ebooklib.EXTENSIONS中定义的扩展来映射类型。
 
         :Returns:
-          Returns type of the item as number.
+          将项目的类型返回为对应的数字。
         """
         _, ext = zip_path.splitext(self.get_name())
         ext = ext.lower()
@@ -183,21 +183,22 @@ class EpubItem(object):
     def get_content(self, default=six.b('')):
         """
         Returns content of the item. Content should be of type 'str' (Python 2) or 'bytes' (Python 3)
+        返回项目的内容。内容应为类型"str"（Python 2）或"bytes"（Python 3）
 
         :Args:
-          - default: Default value for the content if it is not already defined.
+          - default: 如果尚未定义,内容为默认值。
 
         :Returns:
-          Returns content of the item.
+          返回项目的内容。
         """
         return self.content or default
 
     def set_content(self, content):
         """
-        Sets content value for this item.
+        设置此项目的内容值。
 
         :Args:
-          - content: Content value
+          - content: 文本内容
         """
         self.content = content
 
@@ -206,7 +207,7 @@ class EpubItem(object):
 
 
 class EpubNcx(EpubItem):
-    "Represents Navigation Control File (NCX) in the EPUB."
+    "表示EPUB中的导航控制文件（NCX）。"
 
     def __init__(self, uid='ncx', file_name='toc.ncx'):
         super(EpubNcx, self).__init__(uid=uid, file_name=file_name, media_type="application/x-dtbncx+xml")
@@ -217,7 +218,7 @@ class EpubNcx(EpubItem):
 
 class EpubCover(EpubItem):
     """
-    Represents Cover image in the EPUB file.
+    表示EPUB文件中的封面图片。
     """
 
     def __init__(self, uid='cover-img', file_name=''):
@@ -229,7 +230,7 @@ class EpubCover(EpubItem):
 
 class EpubHtml(EpubItem):
     """
-    Represents HTML document in the EPUB file.
+    表示EPUB文件中的HTML文档。
     """
     _template_name = 'chapter'
 
@@ -245,43 +246,41 @@ class EpubHtml(EpubItem):
 
     def is_chapter(self):
         """
-        Returns if this document is chapter or not.
+        如果此文档是章节，则返回 True。
 
         :Returns:
-          Returns book value.
+          返回书的值。
         """
         return True
 
     def get_type(self):
         """
-        Always returns ebooklib.ITEM_DOCUMENT as type of this document.
+        始终返回ebooklib.ITEM_DOCUMENT作为此文档的类型。
 
         :Returns:
-          Always returns ebooklib.ITEM_DOCUMENT
+          始终返回ebooklib.ITEM_DOCUMENT
         """
 
         return ebooklib.ITEM_DOCUMENT
 
     def set_language(self, lang):
         """
-        Sets language for this book item. By default it will use language of the book but it
-        can be overwritten with this call.
+        设置此书项目的语言。 默认情况下，它将使用图书的语言，但它可以用此调用覆盖。
         """
         self.lang = lang
 
     def get_language(self):
         """
-        Get language code for this book item. Language of the book item can be different from
-        the language settings defined globaly for book.
+        获取此书项目的语言代码。 书项目的语言可以不同于定义为全书的语言设置。
 
         :Returns:
-          As string returns language code.
+          返回语言代码为字符串。
         """
         return self.lang
 
     def add_link(self, **kwgs):
         """
-        Add additional link to the document. Links will be embeded only inside of this document.
+        向文档添加其他链接。链接将仅嵌入在此文档的内部。
 
         >>> add_link(href='styles.css', rel='stylesheet', type='text/css')
         """
@@ -289,28 +288,28 @@ class EpubHtml(EpubItem):
 
     def get_links(self):
         """
-        Returns list of additional links defined for this document.
+        返回为此文档定义的其他链接的列表。
 
         :Returns:
-          As tuple return list of links.
+          返回链接列表为元组。
         """
         return (link for link in self.links)
 
     def get_links_of_type(self, link_type):
         """
-        Returns list of additional links of specific type.
+        返回特定类型的其他链接的列表。
 
         :Returns:
-          As tuple returns list of links.
+          返回链接列表为元组。
         """
         return (link for link in self.links if link.get('type', '') == link_type)
 
     def add_item(self, item):
         """
-        Add other item to this document. It will create additional links according to the item type.
+        将其他项目添加到此文档。 它将根据项目类型创建其他链接。
 
         :Args:
-          - item: item we want to add defined as instance of EpubItem
+          - item: 我们要添加的项目定义为EpubItem的实例
         """
         if item.get_type() == ebooklib.ITEM_STYLE:
             self.add_link(href=item.get_name(), rel="stylesheet", type="text/css")
@@ -321,9 +320,11 @@ class EpubHtml(EpubItem):
     def get_body_content(self):
         """
         Returns content of BODY element for this HTML document. Content will be of type 'str' (Python 2) or 'bytes' (Python 3).
+        返回此HTML文档的BODY元素的内容。内容的类型是“str”（Python 2）或“bytes”（Python 3）。
 
         :Returns:
           Returns content of this document.
+          返回此文档的内容。
         """
 
         try:
@@ -351,12 +352,15 @@ class EpubHtml(EpubItem):
     def get_content(self, default=None):
         """
         Returns content for this document as HTML string. Content will be of type 'str' (Python 2) or 'bytes' (Python 3).
+        以HTML字符串形式返回此文档的内容。 内容的类型是“str”（Python 2）或“bytes”（Python 3）。
 
         :Args:
           - default: Default value for the content if it is not defined.
+          - default: 如果未定义内容的默认值。
 
         :Returns:
           Returns content of this document.
+          返回此文档的内容。
         """
 
         tree = parse_string(self.book.get_template(self._template_name))
@@ -366,6 +370,7 @@ class EpubHtml(EpubItem):
         tree_root.attrib['{%s}lang' % NAMESPACES['XML']] = self.lang or self.book.language
 
         # add to the head also
+        # 添加到头
         #  <meta charset="utf-8" />
 
         try:
@@ -376,6 +381,7 @@ class EpubHtml(EpubItem):
         html_root = html_tree.getroottree()
 
         # create and populate head
+        # 创建和填充头
 
         _head = etree.SubElement(tree_root, 'head')
 
@@ -392,6 +398,7 @@ class EpubHtml(EpubItem):
                 _lnk = etree.SubElement(_head, 'link', lnk)
 
         # this should not be like this
+        # 这不应该是这样的
         # head = html_root.find('head')
         # if head is not None:
         #     for i in head.getchildren():
@@ -400,6 +407,7 @@ class EpubHtml(EpubItem):
         #         _head.append(i)
 
         # create and populate body
+        # 创建和填充 html body
 
         _body = etree.SubElement(tree_root, 'body')
         if self.direction:
@@ -421,6 +429,7 @@ class EpubHtml(EpubItem):
 class EpubCoverHtml(EpubHtml):
     """
     Represents Cover page in the EPUB file.
+    表示EPUB文件中的封面页。
     """
 
     def __init__(self, uid='cover', file_name='cover.xhtml', image_name='', title='Cover'):
@@ -432,9 +441,11 @@ class EpubCoverHtml(EpubHtml):
     def is_chapter(self):
         """
         Returns if this document is chapter or not.
+        如果此文档是章节，则返回默认 False。
 
         :Returns:
           Returns book value.
+          返回书的值，
         """
 
         return False
@@ -442,9 +453,11 @@ class EpubCoverHtml(EpubHtml):
     def get_content(self):
         """
         Returns content for cover page as HTML string. Content will be of type 'str' (Python 2) or 'bytes' (Python 3).
+        以HTML字符串形式返回封面页的内容。 内容的类型是“str”（Python 2）或“bytes”（Python 3）。
 
         :Returns:
           Returns content of this document.
+          返回此文档的内容。
         """
 
         self.content = self.book.get_template('cover')
@@ -468,6 +481,7 @@ class EpubCoverHtml(EpubHtml):
 class EpubNav(EpubHtml):
     """
     Represents Navigation Document in the EPUB file.
+    表示EPUB文件中的导航文档。
     """
 
     def __init__(self, uid='nav', file_name='nav.xhtml', media_type="application/xhtml+xml"):
@@ -476,9 +490,11 @@ class EpubNav(EpubHtml):
     def is_chapter(self):
         """
         Returns if this document is chapter or not.
+        如果此文档是章节，则返回False。
 
         :Returns:
           Returns book value.
+          返回书的值。
         """
 
         return False
@@ -490,6 +506,7 @@ class EpubNav(EpubHtml):
 class EpubImage(EpubItem):
     """
     Represents Image in the EPUB file.
+    表示EPUB文件中的图像。
     """
 
     def __init__(self):
@@ -514,6 +531,7 @@ class EpubBook(object):
 
     def reset(self):
         "Initialises all needed variables to default values"
+        "将所有需要的变量初始化为默认值"
 
         self.metadata = {}
         self.items = []
@@ -543,18 +561,22 @@ class EpubBook(object):
         self.add_metadata('OPF', 'generator', '', {'name': 'generator', 'content': 'Ebook-lib %s' % '.'.join([str(s) for s in VERSION])})
 
         # default to using a randomly-unique identifier if one is not specified manually
+        # 默认使用随机唯一的标识符（如果没有手动指定）
         self.set_identifier(str(uuid.uuid4()))
 
         # custom prefixes and namespaces to be set to the content.opf doc
+        # 自定义前缀和命名空间要设置为content.of文档
         self.prefixes = []
         self.namespaces = {}
 
     def set_identifier(self, uid):
         """
         Sets unique id for this epub
+        为这个epub设置唯一的ID
 
         :Args:
           - uid: Value of unique identifier for this book
+          - uid: 本书唯一标识符的值
         """
 
         self.uid = uid
@@ -564,9 +586,11 @@ class EpubBook(object):
     def set_title(self, title):
         """
         Set title. You can set multiple titles.
+        设置标题。 您可以设置多个标题。
 
         :Args:
           - title: Title value
+          - title: 标题内容
         """
 
         self.title = title
@@ -577,9 +601,11 @@ class EpubBook(object):
         """
         Set language for this epub. You can set multiple languages. Specific items in the book can have
         different language settings.
+        为这个epub设定语言 您可以设置多种语言。 书中的具体项目可以有不同的语言设置。
 
         :Args:
           - lang: Language code
+          - lang: 语言代码
         """
 
         self.language = lang
@@ -590,6 +616,7 @@ class EpubBook(object):
         """
         :Args:
           - direction: Options are "ltr", "rtl" and "default"
+          - direction: 选项为“ltr”，“rtl”和“default”
         """
 
         self.direction = direction
@@ -597,14 +624,19 @@ class EpubBook(object):
     def set_cover(self, file_name, content, create_page=True):
         """
         Set cover and create cover document if needed.
+        如果需要，设置封面并创建封面文档。
 
         :Args:
           - file_name: file name of the cover page
+          - file_name: 封面页的文件名
           - content: Content for the cover image
+          - content: 封面图片的内容
           - create_page: Should cover page be defined. Defined as bool value (optional). Default value is True.
+          - create_page: 应定义封面页。 定义为bool值（可选）。 默认值为True。
         """
 
         # as it is now, it can only be called once
+        # 因为它现在只能被调用一次
         c0 = EpubCover(file_name=file_name)
         c0.content = content
         self.add_item(c0)
@@ -617,6 +649,7 @@ class EpubBook(object):
 
     def add_author(self, author, file_as=None, role=None, uid='creator'):
         "Add author for this document"
+        "添加本文档的作者"
 
         self.add_metadata('DC', 'creator', author, {'id': uid})
 
@@ -631,6 +664,7 @@ class EpubBook(object):
 
     def add_metadata(self, namespace, name, value, others=None):
         "Add metadata"
+        "添加元数据"
 
         if namespace in NAMESPACES:
             namespace = NAMESPACES[namespace]
@@ -645,6 +679,7 @@ class EpubBook(object):
 
     def get_metadata(self, namespace, name):
         "Retrieve metadata"
+        "检索元数据"
 
         if namespace in NAMESPACES:
             namespace = NAMESPACES[namespace]
@@ -653,6 +688,7 @@ class EpubBook(object):
 
     def set_unique_metadata(self, namespace, name, value, others=None):
         "Add metadata if metadata with this identifier does not already exist, otherwise update existing metadata."
+        "如果具有此标识符的元数据不存在，则添加元数据，否则更新现有元数据。"
 
         if namespace in NAMESPACES:
             namespace = NAMESPACES[namespace]
@@ -666,9 +702,11 @@ class EpubBook(object):
         """
         Add additional item to the book. If not defined, media type and chapter id will be defined
         for the item.
+        添加额外的项目到书。 如果未定义，将为该项目定义媒体类型和章节标识。
 
         :Args:
           - item: Item instance
+          - item: 项目实例
         """
         if item.media_type == '':
             (has_guessed, media_type) = guess_type(item.get_name().lower())
@@ -701,14 +739,17 @@ class EpubBook(object):
     def get_item_with_id(self, uid):
         """
         Returns item for defined UID.
+        返回定义的UID的项目。
 
         >>> book.get_item_with_id('image_001')
 
         :Args:
           - uid: UID for the item
+          - uid: 项目UID
 
         :Returns:
           Returns item object. Returns None if nothing was found.
+          返回项目对象。 如果没有找到，返回None。
         """
         for item in self.get_items():
             if item.id == uid:
@@ -719,14 +760,17 @@ class EpubBook(object):
     def get_item_with_href(self, href):
         """
         Returns item for defined HREF.
+        返回定义的HREF的项目。
 
         >>> book.get_item_with_href('EPUB/document.xhtml')
 
         :Args:
           - href: HREF for the item we are searching for
+          - href: 我们正在搜索项目的HREF
 
         :Returns:
           Returns item object. Returns None if nothing was found.
+          返回项目对象。 如果没有找到，返回None。
         """
         for item in self.get_items():
             if item.get_name() == href:
@@ -737,35 +781,43 @@ class EpubBook(object):
     def get_items(self):
         """
         Returns all items attached to this book.
+        返回附加到本书的所有项目。
 
         :Returns:
           Returns all items as tuple.
+          将所有项目作为元组返回。
         """
         return (item for item in self.items)
 
     def get_items_of_type(self, item_type):
         """
         Returns all items of specified type.
+        返回指定类型的所有项目。
 
         >>> book.get_items_of_type(epub.ITEM_IMAGE)
 
         :Args:
           - item_type: Type for items we are searching for
+          - item_type: 我们正在搜索项目的类型
 
         :Returns:
           Returns found items as tuple.
+          将已找到的项目返回为元组。
         """
         return (item for item in self.items if item.get_type() == item_type)
 
     def get_items_of_media_type(self, media_type):
         """
         Returns all items of specified media type.
+        返回指定介质类型的所有项目。
 
         :Args:
           - media_type: Media type for items we are searching for
+          - media_type: 我们正在搜索的项目的媒体类型
 
         :Returns:
           Returns found items as tuple.
+          将已找到的项目返回为元组。
         """
         return (item for item in self.items if item.media_type == media_type)
 
@@ -773,8 +825,10 @@ class EpubBook(object):
         """
         Defines templates which are used to generate certain types of pages. When defining new value for the template
         we have to use content of type 'str' (Python 2) or 'bytes' (Python 3).
+        定义用于生成某些类型页面的模板。 当为模板定义新值时，我们必须使用“str”（Python 2）或“bytes”（Python 3）类型的内容。
 
         At the moment we use these templates:
+        目前我们使用这些模板：
           - ncx
           - nav
           - chapter
@@ -782,7 +836,9 @@ class EpubBook(object):
 
         :Args:
           - name: Name for the template
+          - name: 模板名称
           - value: Content for the template
+          - value: 模板内容
         """
 
         self.templates[name] = value
@@ -790,24 +846,30 @@ class EpubBook(object):
     def get_template(self, name):
         """
         Returns value for the template.
+        返回模板值。
 
         :Args:
           - name: template name
+          - name: 模板名称
 
         :Returns:
           Value of the template.
+          模板值
         """
         return self.templates.get(name)
 
     def add_prefix(self, name, uri):
         """
         Appends custom prefix to be added to the content.opf document
+        追加要添加到content.of文档的自定义前缀
 
         >>> epub_book.add_prefix('bkterms', 'http://booktype.org/')
 
         :Args:
           - name: namespave name
+          - name: 命名空间名称
           - uri: URI for the namespace
+          - uri: 命名空间的URI
         """
 
         self.prefixes.append('%s: %s' % (name, uri))
@@ -832,6 +894,7 @@ class EpubWriter(object):
 
     def process(self):
         # should cache this html parsing so we don't do it for every plugin
+        # 应该缓存这个html解析，所以我们不会为每个插件做
         for plg in self.options.get('plugins', []):
             if hasattr(plg, 'before_write'):
                 plg.before_write(self.book)
@@ -863,6 +926,7 @@ class EpubWriter(object):
         nsmap.update(self.book.namespaces)
 
         # This is really not needed
+        # 这真的不是必需的
         # problem is uppercase/lowercase
         # for ns_name, values in six.iteritems(self.book.metadata):
         #     if ns_name:
@@ -1110,6 +1174,7 @@ class EpubWriter(object):
     def _get_ncx(self):
 
         # we should be able to setup language for NCX as also
+        # 我们也应该能够为NCX设置语言
         ncx = parse_string(self.book.get_template('ncx'))
         root = ncx.getroot()
 
@@ -1507,13 +1572,17 @@ class EpubReader(object):
 def write_epub(name, book, options=None):
     """
     Creates epub file with the content defined in EpubBook.
+    使用EpubBook中定义的内容创建epub文件。
 
     >>> ebooklib.write_epub('book.epub', book)
 
     :Args:
       - name: file name for the output file
+      - name: 输出文件的文件名
       - book: instance of EpubBook
+      - book: EpubBook的实例
       - options: extra opions as dictionary (optional)
+      - options: 额外的选项作为字典（可选）
     """
     epub = EpubWriter(name, book, options)
 
@@ -1530,15 +1599,19 @@ def write_epub(name, book, options=None):
 def read_epub(name, options=None):
     """
     Creates new instance of EpubBook with the content defined in the input file.
+    使用输入文件中定义的内容创建EpubBook的新实例。
 
     >>> book = ebooklib.read_epub('book.epub')
 
     :Args:
       - name: full path to the input file
+      - name: 输入文件的完整路径
       - options: extra options as dictionary (optional)
+      - options: 额外的选项作为字典（可选）
 
     :Returns:
       Instance of EpubBook.
+      EpubBook的实例。
     """
     reader = EpubReader(name, options)
 
